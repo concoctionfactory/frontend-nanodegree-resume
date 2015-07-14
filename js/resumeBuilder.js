@@ -1,7 +1,13 @@
+$(function(){
+	// Instantiate MixItUp:
+	$('#Container').mixItUp();
+});
+
+
 //"bio"
 var bio = {
-	"name": "david lee",
-	"role": "web dev",
+	"name": "David Lee",
+	"role": "Web Dev",
 	"contacts": {
 		"email": "concoctionfactory@gmail.com",
 		"github": "concoctionfactoy",
@@ -12,55 +18,68 @@ var bio = {
 	"bioPic":"images/fry.jpg",
 }
 
-bio.display = function(){
+
+bio.headerDisplay = function(){
 	var formattedRole = HTMLheaderRole.replace("%data%",bio.role);
 	$("#header").prepend(formattedRole);
 		var formattedName = HTMLheaderName.replace("%data%",bio.name);
 	$("#header").prepend(formattedName);
+		var formattedBioPic = HTMLbioPic.replace("%data%",bio.bioPic);
+	$("#header").prepend(formattedBioPic);
+}
 
+
+bio.contactDisplay = function(position){
 
 	if(bio.contacts.mobile !== undefined){
 		var formattedMobile = HTMLmobile.replace("%data%",bio.contacts.mobile);
-		$("#topContacts").append(formattedMobile);
-		$("#footerContacts").append(formattedMobile);
+		position.append(formattedMobile);
 	}
+
 	if(bio.contacts.email !== undefined){
 		var formattedEmail = HTMLemail.replace("%data%",bio.contacts.email);
-		$("#topContacts").append(formattedEmail);
-		$("#footerContacts").append(formattedEmail);
+		position.append(formattedEmail);
 	}
+
 	if(bio.contacts.twitter !== undefined){
 		var formattedTwitter = HTMLtwitter.replace("%data%",bio.contacts.twitter);
-		$("#topContacts").append(formattedTwitter);
-		$("#footerContacts").append(formattedTwitter);
+		position.append(formattedTwitter);
 	}
 
 	if(bio.contacts.github !== undefined){
 		var formattedGithub = HTMLgithub.replace("%data%",bio.contacts.github);
-		$("#topContacts").append(formattedGithub);
-		$("#footerContacts").append(formattedGithub);
+		position.append(formattedGithub);
 	}
+
 	if(bio.contacts.blog !== undefined){
 		var formattedBlog = HTMLblog.replace("%data%",bio.contacts.blog);
-		$("#topContacts").append(formattedBlog);
-		$("#footerContacts").append(formattedBlog);
+		position.append(formattedBlog);
 	}
+
 	if(bio.contacts.location !== undefined){
 		var formattedLocation = HTMLlocation.replace("%data%",bio.contacts.location);
-		$("#topContacts").append(formattedLocation);
-		$("#footerContacts").append(formattedLocation);
+		position.append(formattedLocation);
 	}
+}
+
+bio.topContactsDisplay= function(){
+	var pole = $("#topContacts");
+	bio.contactDisplay(pole);
+}
+
+bio.footerContactsDisplay= function(){
+	var pole = $("#footerContacts");
+	bio.contactDisplay(pole);
+}
 
 
-	var formattedBioPic = HTMLbioPic.replace("%data%",bio.bioPic);
-	$("#header").append(formattedBioPic);
-
+bio.messageDisplay = function(){
 	var formattedWelcomeMessage = HTMLwelcomeMsg.replace("%data%",bio.welcomeMessage);
 	$("#header").append(formattedWelcomeMessage);
+}
 
-
-
-	$("#header").append(HTMLskillsStart);
+bio.skillDisplay= function(){
+	$("#bioSkill").append(HTMLskillsStart);
 	for (skill in bio.skills){
 		var formattedSkills = HTMLskills.replace("%data%",bio.skills[skill]);
 		$("#skills").append(formattedSkills);
@@ -73,16 +92,16 @@ var education = {
 	"schools":[
 		{
 			"name": "NYU-POLY",
-			"location": "NYC",
+			"location": "6 MetroTech, NY",
 			"degree": "BS",
-			"major": ["digtalMedia"],
+			"major": ["DigtalMedia"],
 			"dates": "2006-2010",
 			"url":" http://engineering.nyu.edu/"
 		},
 
 		{
 			"name":"Shillington",
-			"location": "NYC",
+			"location": " 315 Madison Ave, NY",
 			"degree": "Graphic Design",
 			"major": ["Graphic Design"],
 			"dates": "2014-2014",
@@ -145,7 +164,7 @@ var work = {
 		{
 			"employer": "Imagemme",
 			"title": "Junior Graphic Designer",
-			"location": "NYC",
+			"location": "285 W Broadway, NY‎",
 			"dates": "2014-Present",
 			"description": " packaging and branding",
 			"url": "http://www.imagemme.com/"
@@ -154,13 +173,14 @@ var work = {
 		{
 			"employer": "Quad Graphics",
 			"title": "GC artist",
-			"location": "NYC",
+			"location": "135 W 50TH ST, NY",
 			"dates": "2014-2015",
 			"description": "agumented Reality",
 			"url": "http://www.qg.com/"
 		}
 	]
 }
+
 
 work.display = function(){
 	for (job in work.jobs){
@@ -181,7 +201,6 @@ work.display = function(){
 }
 
 
-
 //"projects"
 var projects = {
 	"project":[
@@ -189,11 +208,18 @@ var projects = {
 			"title":"placeholder",
 			"dates":"2013",
 			"description": "first project",
-			"images":["images/197x148.gif","images/197x148.gif"],
+			"images":["images/197x148.gif"],
 			"url":"http://www.github.com"
 		},
 		{
 			"title":"placeholder2",
+			"dates":"2014",
+			"description": "second project",
+			"images":["images/197x148.gif"],
+			"url":"http://www.github.com"
+		},
+		{
+			"title":"placeholder3",
 			"dates":"2014",
 			"description": "second project",
 			"images":["images/197x148.gif"],
@@ -216,7 +242,7 @@ projects.display = function(){
 		$(".project-entry:last").append(formattedProjectDescription);
 
 		for (image in projects.project[project_num].images){
-			console.log("count")
+			console.log("count");
 			var formattedProjectImage = HTMLprojectImage.replace("%data%",projects.project[project_num].images[image]);
 			$(".project-entry:last").append(formattedProjectImage);
 		}
@@ -224,15 +250,20 @@ projects.display = function(){
 }
 
 
-
-bio.display();
+bio.headerDisplay();
+bio.topContactsDisplay();
+bio.footerContactsDisplay();
+bio.skillDisplay();
+bio.messageDisplay();
 work.display();
 projects.display();
 education.display();
 
+
 $("#mapDiv:last").append(googleMap);
 //$("#mapDiv:last").append('<div id="map"></div>');
 initializeMap();
+
 
 /*
 $("#main").append(internationalizeButton);
@@ -243,7 +274,6 @@ function inName(){
 	var first= firstLastName[0];
 	var firstMod = first[0].toUpperCase()+ (first.slice(1)).toLowerCase();
 	finalName = firstMod+" "+ last;
-
 	return finalName;
 }
 */
